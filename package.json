@@ -1,7 +1,7 @@
 {
-    "name": "s-nomp",
-    "version": "0.0.9",
-    "description": "zero-proof (Equihash) node stratum mining pool based on NOMP",
+    "name": "kchomp",
+    "version": "0.0.1",
+    "description": "Komodo (Equihash) node stratum mining pool based on NOMP",
     "keywords": [
         "stratum",
         "mining",
@@ -10,13 +10,14 @@
         "poolserver",
         "equihash"
     ],
-    "homepage": "https://github.com/s-nomp/s-nomp",
+    "homepage": "https://github.com/PerentieGroup/Kchomp",
     "bugs": {
-        "url": "https://github.com/s-nomp/s-nomp/issues"
+        "url": "https://github.com/PerentieGroup/Kchomp/issues"
     },
-    "license": "MIT",
-    "author": "s-nomp dev team",
+    "license": "GPL-2.0",
+    "author": "Kchomp dev team",
     "contributors": [
+        "s-nomp dev team",
         "aayanl",
         "egyptianbman",
         "Matthew Little",
@@ -30,7 +31,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/s-nomp/s-nomp.git"
+        "url": "https://github.com/PerentieGroup/Kchomp.git"
     },
     "dependencies": {
         "async": "^2.6.1",
@@ -48,7 +49,7 @@
         "nonce": "^1.0.4",
         "redis": "^2.8.0",
         "request": "^2.88.0",
-        "stratum-pool": "git+https://github.com/s-nomp/node-stratum-pool.git"
+        "stratum-pool": "git+https://github.com/PerentieGroup/js-stratum.git"
     },
     "engines": {
         "node": ">=8.11"
