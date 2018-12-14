@@ -8,6 +8,7 @@ This is beta software. All of the following are things that can change and break
 ### Community / Support
 
 Please join our Discord to follow development. Any support questions can be answered here quickly as well.
+
 https://discord.gg/RqsSGKs
 
 # Usage
