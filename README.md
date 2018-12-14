@@ -5,14 +5,10 @@ This is a Equihash mining pool based off Node Open Mining Portal.
 #### Production Usage Notice
 This is beta software. All of the following are things that can change and break an existing Kchomp setup: functionality of any feature, structure of configuration files and structure of redis data. If you use this software in production then *DO NOT* pull new code straight into production usage because it can and often will break your setup and require you to tweak things like config files or redis data. *Only tagged releases are considered stable.*
 
-#### Paid Solution
-Usage of this software requires abilities with sysadmin, database admin, coin daemons, and sometimes a bit of programming. Running a production pool can literally be more work than a full-time job. 
-
 ### Community / Support
 
 Please join our Discord to follow development. Any support questions can be answered here quickly as well.
-
-https://discord.gg/4mVaTsH
+https://discord.gg/RqsSGKs
 
 # Usage
 
