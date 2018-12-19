@@ -1,13 +1,21 @@
+var zlib = require('zlib');
+
 var redis = require('redis');
 var async = require('async');
-var algos = require('stratum-pool/lib/algoProperties.js');
+
+var os = require('os');
+
+var algos = require('js-stratum/lib/algoProperties.js');
 
 // redis callback Ready check failed bypass trick
 function rediscreateClient(port, host, pass) {
     var client = redis.createClient(port, host);
-    if (pass) { client.auth(pass); }
+    if (pass) {
+        client.auth(pass);
+    }
     return client;
 }
+
 
 /**
  * Sort object properties (only own properties will be sorted).
@@ -21,13 +29,19 @@ function sortProperties(obj, sortedBy, isNumericSort, reverse) {
     sortedBy = sortedBy || 1; // by default first key
     isNumericSort = isNumericSort || false; // by default text sort
     reverse = reverse || false; // by default no reverse
+
     var reversed = (reverse) ? -1 : 1;
+
     var sortable = [];
     for (var key in obj) {
-        if (obj.hasOwnProperty(key)) { sortable.push([key, obj[key]]); }
+        if (obj.hasOwnProperty(key)) {
+            sortable.push([key, obj[key]]);
+        }
     }
     if (isNumericSort)
-        sortable.sort(function (a, b) { return reversed * (a[1][sortedBy] - b[1][sortedBy]); });
+        sortable.sort(function (a, b) {
+            return reversed * (a[1][sortedBy] - b[1][sortedBy]);
+        });
     else
         sortable.sort(function (a, b) {
             var x = a[1][sortedBy].toLowerCase(),
@@ -40,11 +54,15 @@ function sortProperties(obj, sortedBy, isNumericSort, reverse) {
 module.exports = function (logger, portalConfig, poolConfigs) {
 
     var _this = this;
+
     var logSystem = 'Stats';
+
     var redisClients = [];
     var redisStats;
+
     this.statHistory = [];
     this.statPoolHistory = [];
+
     this.stats = {};
     this.statsString = '';
 
@@ -55,8 +73,10 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
     Object.keys(poolConfigs).forEach(function (coin) {
         if (!canDoStats) return;
+
         var poolConfig = poolConfigs[coin];
         var redisConfig = poolConfig.redis;
+
         for (var i = 0; i < redisClients.length; i++) {
             var client = redisClients[i];
             if (client.client.port === redisConfig.port && client.client.host === redisConfig.host) {
@@ -72,7 +92,7 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
     function setupStatsRedis() {
         redisStats = redis.createClient(portalConfig.redis.port, portalConfig.redis.host);
-        redisStats.on('error', function () {
+        redisStats.on('error', function (err) {
             redisStats.auth(portalConfig.redis.password);
         });
     }
@@ -80,14 +100,17 @@ module.exports = function (logger, portalConfig, poolConfigs) {
     this.getBlocks = function (cback) {
         var allBlocks = {};
         async.each(_this.stats.pools, function (pool, pcb) {
+
             if (_this.stats.pools[pool.name].pending && _this.stats.pools[pool.name].pending.blocks)
                 for (var i = 0; i < _this.stats.pools[pool.name].pending.blocks.length; i++)
                     allBlocks[pool.name + "-" + _this.stats.pools[pool.name].pending.blocks[i].split(':')[2]] = _this.stats.pools[pool.name].pending.blocks[i];
+
             if (_this.stats.pools[pool.name].confirmed && _this.stats.pools[pool.name].confirmed.blocks)
                 for (var i = 0; i < _this.stats.pools[pool.name].confirmed.blocks.length; i++)
                     allBlocks[pool.name + "-" + _this.stats.pools[pool.name].confirmed.blocks[i].split(':')[2]] = _this.stats.pools[pool.name].confirmed.blocks[i];
+
             pcb();
-        }, function () {
+        }, function (err) {
             cback(allBlocks);
         });
     };
@@ -111,6 +134,34 @@ module.exports = function (logger, portalConfig, poolConfigs) {
         });
     }
 
+    function getWorkerStats(address) {
+        address = address.split(".")[0];
+        if (address.length > 0 && address.startsWith('t')) {
+            for (var h in statHistory) {
+                for (var pool in statHistory[h].pools) {
+
+                    statHistory[h].pools[pool].workers.sort(sortWorkersByHashrate);
+
+                    for (var w in statHistory[h].pools[pool].workers) {
+                        if (w.startsWith(address)) {
+                            if (history[w] == null) {
+                                history[w] = [];
+                            }
+                            if (workers[w] == null && stats.pools[pool].workers[w] != null) {
+                                workers[w] = stats.pools[pool].workers[w];
+                            }
+                            if (statHistory[h].pools[pool].workers[w].hashrate) {
+                                history[w].push({ time: statHistory[h].time, hashrate: statHistory[h].pools[pool].workers[w].hashrate });
+                            }
+                        }
+                    }
+                }
+            }
+            return JSON.stringify({ "workers": workers, "history": history });
+        }
+        return null;
+    }
+
     function addStatPoolHistory(stats) {
         var data = {
             time: stats.time,
@@ -130,7 +181,9 @@ module.exports = function (logger, portalConfig, poolConfigs) {
     var coinPrecision = magnitude.toString().length - 1;
 
     function roundTo(n, digits) {
-        if (digits === undefined) { digits = 0; }
+        if (digits === undefined) {
+            digits = 0;
+        }
         var multiplicator = Math.pow(10, digits);
         n = parseFloat((n * multiplicator).toFixed(11));
         var test = (Math.round(n) / multiplicator);
@@ -139,6 +192,10 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
     var satoshisToCoins = function (satoshis) {
         return roundTo((satoshis / magnitude), coinPrecision);
+    };
+
+    var coinsToSatoshies = function (coins) {
+        return Math.round(coins * magnitude);
     };
 
     function coinsRound(number) {
@@ -178,7 +235,10 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
     this.getTotalSharesByAddress = function (address, cback) {
         var a = address.split(".")[0];
-        var client = redisClients[0].client;
+        var client = redisClients[0].client,
+            coins = redisClients[0].coins,
+            shares = [];
+
         var pindex = parseInt(0);
         var totalShares = parseFloat(0);
         async.each(_this.stats.pools, function (pool, pcb) {
@@ -189,14 +249,18 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                     pcb(error);
                     return;
                 }
+                var workerName = "";
                 var shares = 0;
                 for (var i in result[1]) {
                     if (Math.abs(i % 2) != 1) {
+                        workerName = String(result[1][i]);
                     } else {
                         shares += parseFloat(result[1][i]);
                     }
                 }
-                if (shares > 0) { totalShares = shares; }
+                if (shares > 0) {
+                    totalShares = shares;
+                }
                 pcb();
             });
         }, function (err) {
@@ -212,9 +276,13 @@ module.exports = function (logger, portalConfig, poolConfigs) {
     };
 
     this.getBalanceByAddress = function (address, cback) {
+
         var a = address.split(".")[0];
+
         var client = redisClients[0].client,
+            coins = redisClients[0].coins,
             balances = [];
+
         var totalHeld = parseFloat(0);
         var totalPaid = parseFloat(0);
         var totalImmature = parseFloat(0);
@@ -232,6 +300,7 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                         var balAmount = 0;
                         var paidAmount = 0;
                         var pendingAmount = 0;
+
                         var workers = {};
 
                         for (var i in pays[1]) {
@@ -283,8 +352,10 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                 callback("There was an error getting balances");
                 return;
             }
+
             _this.stats.balances = balances;
             _this.stats.address = address;
+
             cback({ totalHeld: coinsRound(totalHeld), totalPaid: coinsRound(totalPaid), totalImmature: satoshisToCoins(totalImmature), balances });
         });
     };
@@ -292,10 +363,13 @@ module.exports = function (logger, portalConfig, poolConfigs) {
     this.getGlobalStats = function (callback) {
 
         var statGatherTime = Date.now() / 1000 | 0;
+
         var allCoinStats = {};
+
         async.each(redisClients, function (client, callback) {
             var windowTime = (((Date.now() / 1000) - portalConfig.website.stats.hashrateWindow) | 0).toString();
             var redisCommands = [];
+
             var redisCommandTemplates = [
                 ['zremrangebyscore', ':hashrate', '-inf', '(' + windowTime],
                 ['zrangebyscore', ':hashrate', windowTime, '+inf'],
@@ -310,7 +384,9 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                 ['zrange', ':payments', -100, -1],
                 ['hgetall', ':shares:timesCurrent']
             ];
+
             var commandsPerCoin = redisCommandTemplates.length;
+
             client.coins.map(function (coin) {
                 redisCommandTemplates.map(function (t) {
                     var clonedTemplates = t.slice(0);
@@ -337,7 +413,6 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                             name: coinName,
                             symbol: poolConfigs[coinName].coin.symbol.toUpperCase(),
                             algorithm: poolConfigs[coinName].coin.algorithm,
-                            poolFees: poolConfigs[coinName].rewardRecipients,
                             hashrates: replies[i + 1],
                             poolStats: {
                                 validShares: replies[i + 2] ? (replies[i + 2].validShares || 0) : 0,
@@ -381,7 +456,9 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                             } catch (e) {
                                 jsonObj = null;
                             }
-                            if (jsonObj !== null) { coinStats.payments.push(jsonObj); }
+                            if (jsonObj !== null) {
+                                coinStats.payments.push(jsonObj);
+                            }
                         }
                         allCoinStats[coinStats.name] = (coinStats);
                     }
@@ -499,10 +576,12 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
                 // sort miners
                 coinStats.miners = sortMinersByHashrate(coinStats.miners);
+
                 var shareMultiplier = Math.pow(2, 32) / algos[coinStats.algorithm].multiplier;
                 coinStats.hashrate = shareMultiplier * coinStats.shares / portalConfig.website.stats.hashrateWindow;
                 coinStats.hashrateString = _this.getReadableHashRateString(coinStats.hashrate);
-                var _blocktime = 160;
+
+                var _blocktime = 55;
                 var _networkHashRate = parseFloat(coinStats.poolStats.networkSols) * 1.2;
                 var _myHashRate = (coinStats.hashrate / 1000000) * 2;
                 coinStats.luckDays = ((_networkHashRate / _myHashRate * _blocktime) / (24 * 60 * 60)).toFixed(3);
@@ -522,6 +601,7 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                 }
                 portalStats.algos[algo].hashrate += coinStats.hashrate;
                 portalStats.algos[algo].workers += Object.keys(coinStats.workers).length;
+
                 var _shareTotal = parseFloat(0);
                 var _maxTimeShare = parseFloat(0);
                 for (var worker in coinStats.currentRoundShares) {
@@ -537,14 +617,16 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                 for (var worker in coinStats.currentRoundTimes) {
                     var time = parseFloat(coinStats.currentRoundTimes[worker]);
                     if (_maxTimeShare < time) { _maxTimeShare = time; }
-                    var miner = worker.split(".")[0];    // split poolId from minerAddress
+                    var miner = worker.split(".")[0];	// split poolId from minerAddress
                     if (miner in coinStats.miners && coinStats.miners[miner].currRoundTime < time) {
                         coinStats.miners[miner].currRoundTime = time;
                     }
                 }
+
                 coinStats.shareCount = _shareTotal;
                 coinStats.maxRoundTime = _maxTimeShare;
                 coinStats.maxRoundTimeString = readableSeconds(_maxTimeShare);
+
                 for (var worker in coinStats.workers) {
                     var _workerRate = shareMultiplier * coinStats.workers[worker].shares / portalConfig.website.stats.hashrateWindow;
                     var _wHashRate = (_workerRate / 1000000) * 2;
@@ -568,6 +650,7 @@ module.exports = function (logger, portalConfig, poolConfigs) {
 
                 // sort workers by name
                 coinStats.workers = sortWorkersByName(coinStats.workers);
+
                 delete coinStats.hashrates;
                 delete coinStats.shares;
             });
@@ -593,7 +676,9 @@ module.exports = function (logger, portalConfig, poolConfigs) {
             _this.statHistory.push(saveStats);
 
             addStatPoolHistory(portalStats);
+
             var retentionTime = (((Date.now() / 1000) - portalConfig.website.stats.historicalRetention) | 0);
+
             for (var i = 0; i < _this.statHistory.length; i++) {
                 if (retentionTime < _this.statHistory[i].time) {
                     if (i > 0) {
@@ -603,15 +688,17 @@ module.exports = function (logger, portalConfig, poolConfigs) {
                     break;
                 }
             }
+
             redisStats.multi([
                 ['zadd', 'statHistory', statGatherTime, _this.statsString],
                 ['zremrangebyscore', 'statHistory', '-inf', '(' + retentionTime]
-            ]).exec(function (err) {
+            ]).exec(function (err, replies) {
                 if (err)
                     logger.error(logSystem, 'Historics', 'Error adding stats to historics ' + JSON.stringify(err));
             });
             callback();
         });
+
     };
 
     function sortPoolsByName(objects) {
@@ -667,9 +754,9 @@ module.exports = function (logger, portalConfig, poolConfigs) {
     this.getReadableHashRateString = function (hashrate) {
         hashrate = (hashrate * 2);
         if (hashrate < 1000000) {
-            return (Math.round(hashrate / 1000) / 1000).toFixed(2) + ' Sol/s';
+            return (Math.round(hashrate / 1000) / 1000).toFixed(2) + ' H/s';
         }
-        var byteUnits = [' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s'];
+        var byteUnits = [' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s'];
         var i = Math.floor((Math.log(hashrate / 1000) / Math.log(1000)) - 1);
         hashrate = (hashrate / 1000) / Math.pow(1000, i + 1);
         return hashrate.toFixed(2) + byteUnits[i];
@@ -679,7 +766,7 @@ module.exports = function (logger, portalConfig, poolConfigs) {
         hashrate = (hashrate * 1000000);
         if (hashrate < 1000000)
             return '0 Sol';
-        var byteUnits = [' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s'];
+        var byteUnits = [' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s'];
         var i = Math.floor((Math.log(hashrate / 1000) / Math.log(1000)) - 1);
         hashrate = (hashrate / 1000) / Math.pow(1000, i + 1);
         return hashrate.toFixed(2) + byteUnits[i];

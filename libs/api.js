@@ -1,13 +1,18 @@
+var redis = require('redis');
+var async = require('async');
+
 var stats = require('./stats.js');
 
 module.exports = function (logger, portalConfig, poolConfigs) {
 
 	var _this = this;
+
 	var portalStats = this.stats = new stats(logger, portalConfig, poolConfigs);
 
 	this.liveStatConnections = {};
 
 	this.handleApiRequest = function (req, res, next) {
+
 		switch (req.params.method) {
 			case 'stats':
 				res.header('Content-Type', 'application/json');

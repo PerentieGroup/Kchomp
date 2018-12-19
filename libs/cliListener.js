@@ -2,13 +2,17 @@ var events = require('events');
 var net = require('net');
 
 var listener = module.exports = function listener(server, port) {
+
     var _this = this;
+
     var emitLog = function (text) {
         _this.emit('log', text);
     };
 
+
     this.start = function () {
         net.createServer(function (c) {
+
             var data = '';
             try {
                 c.on('data', function (d) {
@@ -20,14 +24,22 @@ var listener = module.exports = function listener(server, port) {
                         });
                     }
                 });
-                c.on('end', function () { });
-                c.on('error', function () { });
+                c.on('end', function () {
+
+                });
+                c.on('error', function () {
+
+                });
             }
             catch (e) {
                 emitLog('CLI listener failed to parse message ' + data);
             }
-        }).listen(port, server, function () { emitLog('CLI listening on  ' + server + ":" + port) });
+
+        }).listen(port, server, function () {
+            emitLog('CLI listening on  ' + server + ":" + port)
+        });
     }
+
 };
 
 listener.prototype.__proto__ = events.EventEmitter.prototype;

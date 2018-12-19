@@ -1,10 +1,11 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
 
-    <link rel="icon" type="image/png" href="/static/favicon.png"/>
+    <link rel="icon" type="image/png" href="/static/favicon.png" />
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
@@ -27,64 +28,68 @@
 
 <body>
 
-<header>
-    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
+    <header>
+        <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
 
-        <a class="pure-menu-heading hot-swapper" href="/"><i class="fa fa-home"></i>&nbsp;Kchomp</a>
+            <a class="pure-menu-heading hot-swapper" href="/"><i class="fa fa-home"></i>&nbsp;Kchomp</a>
 
-        <ul>
-            <li class="{{? it.selected === 'getting_started' }}pure-menu-selected{{?}}">
-                <a class="hot-swapper" href="/getting_started">
-                    <i class="fa fa-rocket"></i>&nbsp;
-                    Getting Started
-                </a>
-            </li>
-            <li class="{{? it.selected === 'stats' }}pure-menu-selected{{?}}">
-                <a class="hot-swapper" href="/stats">
-                    <i class="fa fa-bar-chart-o"></i>&nbsp;
-                    Graph Stats
-                </a>
-            </li>
-            <li class="{{? it.selected === 'tbs' }}pure-menu-selected{{?}}">
-                <a class="hot-swapper" href="/tbs">
-                    <i class="fa fa-table"></i>&nbsp;
-                    Tab Stats
-                </a>
-            </li>
-            <li class="{{? it.selected === 'workers' }}pure-menu-selected{{?}}">
-                <a class="hot-swapper" href="/workers">
-                    <i class="fa fa-cogs"></i>&nbsp;
-                    Workers Stats
-                </a>
-            </li>
-            <li class="{{? it.selected === 'api' }}pure-menu-selected{{?}}">
-                <a class="hot-swapper" href="/api">
-                    <i class="fa fa-code"></i>&nbsp;
-                    API
-                </a>
-            </li>
-        </ul>
-    </div>
-</header>
+            <ul>
+                <li class="{{? it.selected === 'getting_started' }}pure-menu-selected{{?}}">
+                    <a class="hot-swapper" href="/getting_started">
+                        <i class="fa fa-rocket"></i>&nbsp;
+                        Getting Started
+                    </a>
+                </li>
+                <li class="{{? it.selected === 'stats' }}pure-menu-selected{{?}}">
+                    <a class="hot-swapper" href="/stats">
+                        <i class="fa fa-bar-chart-o"></i>&nbsp;
+                        Graph Stats
+                    </a>
+                </li>
+                <li class="{{? it.selected === 'tbs' }}pure-menu-selected{{?}}">
+                    <a class="hot-swapper" href="/tbs">
+                        <i class="fa fa-table"></i>&nbsp;
+                        Tab Stats
+                    </a>
+                </li>
+                <li class="{{? it.selected === 'workers' }}pure-menu-selected{{?}}">
+                    <a class="hot-swapper" href="/workers">
+                        <i class="fa fa-cogs"></i>&nbsp;
+                        Workers Stats
+                    </a>
+                </li>
+                <li class="{{? it.selected === 'api' }}pure-menu-selected{{?}}">
+                    <a class="hot-swapper" href="/api">
+                        <i class="fa fa-code"></i>&nbsp;
+                        API
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
 
-<main>
-    {{=it.page}}
-</main>
+    <main>
+        {{=it.page}}
+    </main>
 
 
-<footer>
+    <footer>
 
-    <div>
-        This site is powered by the open source <a target="_blank" href="https://github.com/PerentieGroup/Kchomp">Kchomp</a>
-        project created by the PerentieGroup and the Komodo Community and is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPLv2 License</a>
-    </div>
-    <div id="communityFooter">
-        Community&nbsp;<i class="fa fa-comment"></i>&nbsp;: &nbsp;<a target="_blank" href="https://discord.gg/RqsSGKs">#talk-mining Komodo Discord</a>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <iframe src="https://ghbtns.com/github-btn.html?user=PerentieGroup&repo=Kchomp&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="140" height="20"></iframe>
-    </div>
+        <div>
+            This site is powered by the open source <a target="_blank" href="https://github.com/PerentieGroup/Kchomp">Kchomp</a>
+            project created by the PerentieGroup and the Komodo Community and is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPLv2
+                License</a>
+        </div>
+        <div id="communityFooter">
+            Community&nbsp;<i class="fa fa-comment"></i>&nbsp;: &nbsp;<a target="_blank" href="https://discord.gg/RqsSGKs">#talk-mining
+                Komodo Discord</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <iframe src="https://ghbtns.com/github-btn.html?user=PerentieGroup&repo=Kchomp&type=watch&count=true"
+                allowtransparency="true" frameborder="0" scrolling="0" width="140" height="20"></iframe>
+        </div>
 
-</footer>
+    </footer>
 
 </body>
+
 </html>

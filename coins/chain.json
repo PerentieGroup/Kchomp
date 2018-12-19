@@ -1,14 +1,16 @@
 {
-    "name": "komodo",
-    "symbol": "kmd",
+    "name": "Chainmakers",
+    "symbol": "CHAIN",
     "algorithm": "equihash",
-    "txfee": 0.00005,
-    "sapling": 1140409,
+    "txfee": 0.0001,
+    "sapling": 1544711123,
     "requireShielding": false,
     "feesRaped": false,
+    "minConf": 10,
+    "peerMagic": "568ea9e0",
     "explorer": {
-        "txURL": "https://kmdexplorer.io/tx/",
-        "blockURL": "https://kmdexplorer.io/block/",
+        "txURL": "http://spltest.explorer.dexstats.info/tx/",
+        "blockURL": "http://spltest.explorer.dexstats.info/block/",
         "_comment_explorer": "This is the coin's explorer full base url for transaction and blocks i.e. (https://explorer.coin.com/tx/). The pool will automatically add the transaction id or block id at the end."
     }
 }

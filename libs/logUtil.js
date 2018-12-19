@@ -1,4 +1,7 @@
 var dateFormat = require('dateformat');
+var colors = require('colors');
+
+
 var severityToColor = function (severity, text) {
     switch (severity) {
         case 'special':
@@ -22,36 +25,57 @@ var severityValues = {
     'special': 4
 };
 
+
 var PoolLogger = function (configuration) {
+
+
     var logLevelInt = severityValues[configuration.logLevel];
     var logColors = configuration.logColors;
+
+
+
     var log = function (severity, system, component, text, subcat) {
+
         if (severityValues[severity] < logLevelInt) return;
+
         if (subcat) {
             var realText = subcat;
             var realSubCat = text;
             text = realText;
             subcat = realSubCat;
         }
+
         var entryDesc = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss') + ' [' + system + ']\t';
         if (logColors) {
             entryDesc = severityToColor(severity, entryDesc);
 
-            var logString = entryDesc + ('[' + component + '] ').italic;
+            var logString =
+                entryDesc +
+                ('[' + component + '] ').italic;
 
-            if (subcat) logString += ('(' + subcat + ') ').bold.grey;
+            if (subcat)
+                logString += ('(' + subcat + ') ').bold.grey;
+
             logString += text.grey;
         }
         else {
-            var logString = entryDesc + '[' + component + '] ';
+            var logString =
+                entryDesc +
+                '[' + component + '] ';
 
-            if (subcat) logString += '(' + subcat + ') ';
+            if (subcat)
+                logString += '(' + subcat + ') ';
+
             logString += text;
         }
+
         console.log(logString);
+
+
     };
 
     // public
+
     var _this = this;
     Object.keys(severityValues).forEach(function (logType) {
         _this[logType] = function () {

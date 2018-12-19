@@ -1,6 +1,6 @@
 {
     "name": "kchomp",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Komodo (Equihash) node stratum mining pool based on NOMP",
     "keywords": [
         "stratum",
@@ -49,12 +49,12 @@
         "nonce": "^1.0.4",
         "redis": "^2.8.0",
         "request": "^2.88.0",
-        "stratum-pool": "git+https://github.com/PerentieGroup/js-stratum.git"
+        "js-stratum": "PerentieGroup/js-stratum"
     },
     "engines": {
         "node": ">=8.11"
     },
     "scripts": {
-        "start": "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/node_modules/stratum-pool/node_modules/equihashverify/build/Release/:$PWD/node_modules/equihashverify/build/Release/ node init.js"
+        "start": "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/node_modules/js-stratum/lib/lib/node_modules/equihashverify/build/Release/:$PWD/node_modules/equihashverify/build/Release/ node init.js"
     }
 }
