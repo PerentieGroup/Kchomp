@@ -26,12 +26,17 @@ include `bind 127.0.0.1` in your `redis.conf` file. Also it's a good idea to lea
 you are using - a good place to start with redis is [data persistence](http://redis.io/topics/persistence).
 
 #### 0) Setting up coin daemon
-Follow the build/install instructions for your coin daemon. Your coin.conf file should end up looking something like this:
+Follow the build/install instructions for your coin daemon. You can use the Komodo documentation to build Komodo & then it's assetchains if you haven't done so already.
+https://docs.komodoplatform.com/komodo/install-Komodo-manually.html
+
+Your coin.conf file should end up looking something like this:
 ```
 daemon=1
-rpcuser=zclassicrpc
-rpcpassword=securepassword
-rpcport=8232
+server=1
+rpcuser=YourSecureUsername //change this to a secure username of your liking
+rpcpassword=YourSecurePassword //needs changing as well
+rpcport=7771 //this is the KMD RPC port number, change according to the assetchains RPC port if req'd
+rpcbind=127.0.0.1 //optional to only allow your PC to conduct RPC calls
 ```
 For redundancy, its recommended to have at least two daemon instances running in case one drops out-of-sync or offline,
 all instances will be polled for block/transaction updates and be used for submitting blocks. Creating a backup daemon
@@ -59,8 +64,7 @@ npm install
 ```
 
 ##### Pool config
-Take a look at the example json file inside the `pool_configs` directory. Rename it to `zclassic.json` and change the
-example fields to fit your setup.
+Take a look at the example .json file inside the `pool_configs` directory. Rename it to `komodo.json` (or your assetchain name) and change the example fields to fit your setup.
 
 ```
 Please Note that: 1 Difficulty is actually 8192, 0.125 Difficulty is actually 1024.
@@ -85,6 +89,7 @@ blocknotify=node /home/user/Kchomp/scripts/cli.js blocknotify zclassic %s
 Alternatively, you can use a more efficient block notify script written in pure C. Build and usage instructions
 are commented in [scripts/blocknotify.c](scripts/blocknotify.c).
 
+You can also set up P2P in the pool_configs .json file instead of a blocknotify script.
 
 #### 3) Start the portal
 
