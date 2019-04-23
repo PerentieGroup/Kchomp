@@ -1,0 +1,40 @@
+{{ function capitalizeFirstLetter(t){return t.charAt(0).toUpperCase()+t.slice(1)} }}
+
+{{ var i=0; for(var pool in it.stats.pools) { }}
+    <div class="flex-container" style="margin: 40px 0px 40px 0px">
+        <div class="poolWrapper">
+            <div class="poolLabel">
+                    <div class="header" style="font-size: 1.4em">{{=it.stats.pools[pool].name}} Miners</div>				
+                    <small>
+                        <span id="statsMiners{{=pool}}">{{=it.stats.pools[pool].minerCount}}</span> Miners
+                        <span id="statsWorkers{{=pool}}">{{=it.stats.pools[pool].workerCount}}</span> Workers
+                        <span id="statsWorkers{{=pool}}">{{=it.stats.pools[pool].shareCount}}</span> Total Shares
+                    </small>	
+            </div>
+            
+            <div class="poolMinerTable">
+                <table class="pure-table" style="table-layout: inherit">
+                    <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th>Shares</th>
+                        <th>Efficiency</th>
+                        <th>Hashrate</th>
+                    </tr>
+                    </thead>
+                    {{ for(var worker in it.stats.pools[pool].miners) { }}
+                    {{var workerstat = it.stats.pools[pool].miners[worker];}}
+                    <tbody>    
+                    <tr class="pure-table-odd">
+                            <td><a href="/workers/{{=worker.split('.')[0]}}">{{=worker.length > 40 ? worker.substring(0, 20) + '...' + worker.substring(worker.length-20, worker.length): worker}}</a></td> 
+                            <td>{{=Math.round(workerstat.currRoundShares * 100) / 100}}</td>
+                            <td>{{? workerstat.shares > 0}} {{=Math.floor(10000 * workerstat.shares / (workerstat.shares + workerstat.invalidshares)) / 100}}% {{??}} 0% {{?}}</td>
+                            <td>{{=workerstat.hashrateString}}</td>
+                        </tr>
+                    </tbody>
+                    {{ } }} 
+                </table>
+            </div>
+        </div>
+    </div>
+{{ } }}

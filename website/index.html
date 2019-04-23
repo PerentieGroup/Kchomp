@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+   
+    <meta name="language" content="English"> 
+
+    <title>Kchomp</title>
+
+    <link rel="shortcut icon" type="image/png" href="/static/images/logo/KchompLogo.png"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Karla|Merriweather+Sans|Russo+One" rel="stylesheet">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.5/d3.min.js"></script>
+    <script src="/static/nvd3.js"></script>
+    <link rel="stylesheet" href="/static/nvd3.css">
+
+    <script src="/static/main.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<header>
+<style>
+    /* phone size */
+@media screen and (max-width: 1000px) {
+    .lookUp {
+        display: none;
+    }
+}
+</style>
+
+<script type="text/javascript"> 
+    function searchKeyPress(e)
+    {
+        // look for window.event in case event isn't passed in
+        e = e || window.event;
+        if (e.keyCode == 13)
+        {
+            document.getElementById('btnSearch').click();
+            return false;
+        }
+        return true;
+    }
+    $(document).ready(function(){
+        $('.btn-lg').click(function(){
+            window.location = "workers/" + $('.input-lg').val();
+        });
+    });
+</script>
+
+<div class="navbar">
+        <a class="home" href="/">
+            HOME
+        </a>
+
+        <a href="/getting_started">
+            GETTING STARTED
+        </a>
+                
+        <a href="/stats">
+            GRAPH STATS
+        </a>
+    
+        <a href="/workers">
+            WORKER STATS
+        </a>
+
+        <a href="/tbs">
+            TAB STATS
+        </a>
+
+        <a href="/payments">
+            PAYMENTS
+        </a>
+
+        <a href="/api">
+            API
+        </a>
+       
+        <span style="float:right; padding: 10px">
+            <div class="lookUp">Search: 
+            <input type="text" class="form-control input-lg" onkeypress="return searchKeyPress(event);">
+                <span class="input-group-btn" placeholder="ADDRESS">
+                    <button class="btn btn-default btn-lg" type="button" id="btnSearch">Go</button>
+                </span>
+            </div>
+        </span>
+    </ul>
+</div>
+
+</header>
+
+<main>
+    {{=it.page}}
+</main>
+
+<footer>
+
+    <div>
+        This site is powered by the open source <a target="_blank" href="https://github.com/PerentieGroup/Kchomp">Kchomp</a> project created by the PerentieGroup and the Komodo Community and is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPLv2 License</a>
+    </div>
+
+    <div id="communityFooter">
+        Community&nbsp;<i class="fa fa-comment"></i>&nbsp;: &nbsp;<a target="_blank" href="https://discord.gg/RqsSGKs">#talk-mining Komodo Discord</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <iframe src="https://ghbtns.com/github-btn.html?user=PerentieGroup&repo=Kchomp&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="140" height="20">
+        </iframe>
+    </div>
+    
+</footer>
+</body>
+</html>

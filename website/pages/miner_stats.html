@@ -1,0 +1,27 @@
+<div class="flex-container">
+	<div id="topCharts">
+		<div class="chartWrapper">
+			<div class="chartLabel" style="font-size: 1.5em">
+				<div>Worker Stats</div>		
+				<div style="float:left; margin-right: 9px;">{{=String(it.stats.address).split(".")[0].length > 40 ? String(it.stats.address).split(".")[0].substring(0, 10) + '...' + String(it.stats.address).split(".")[0].substring(String(it.stats.address).split(".")[0].length-10, String(it.stats.address).split(".")[0].length): String(it.stats.address).split(".")[0]}}</div>
+				<div style="float:right; padding-left: 18px;"><small><span id="statsHashrateAvg">...</span> (Avg)</small></div>
+				<div style="float:right; padding-left: 18px;"><small><span id="statsHashrate">...</span> (Now)</small></div>
+				<div style="float:right; padding-left: 18px;"><small>Luck <span id="statsLuckDays">...</span> Days</small></div>
+			</div>
+			<div class="chartHolder"><svg id="workerHashrate"></svg></div>
+			<div class="chartLabel" style="font-size: 1.5em">
+				<div style="float:right; padding-top: 9px; padding-right: 18px;"> Shares: <span id="statsTotalShares">...</span></div>
+				<div style="float:left; padding-top: 9px; padding-left: 18px; padding-right: 18px;"> Immature: <span id="statsTotalImmature">...</span> </div>
+				<div style="float:left; padding-top: 9px; padding-left: 18px; padding-right: 18px;"> Bal: <span id="statsTotalBal">...</span>  </div>
+				<div style="padding-top: 9px; padding-left: 18px;">Paid: <span id="statsTotalPaid">...</span>  </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var _miner = "{{=String(it.stats.address).split(".")[0]}}";
+	var _workerCount = 0;
+	window.statsSource = new EventSource("/api/live_stats");
+    document.querySelector('main').appendChild(document.createElement('script')).src = '/static/miner_stats.js';
+</script>
