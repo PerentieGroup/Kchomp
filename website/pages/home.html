@@ -64,7 +64,7 @@
                             <th>Connections</th>
                         </tr>
                     </thead>
-                    {{ for(var p in it.stats.pools[pool].payments) { }}
+                    {{ for(var pool in it.stats.pools) { }}
                         <tbody>
                             <tr>
                                 <td>{{=it.stats.pools[pool].name}}</td>
