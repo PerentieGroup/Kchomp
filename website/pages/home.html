@@ -49,6 +49,39 @@
             Pool Overview
     </div>
 
+    <div class="poolWrapper">
+            <div class="poolMinerTable">
+                <table class="pure-table" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th>Coin</th>
+                            <th>Block Height</th>
+                            <th>Difficulty</th>
+                            <th>Network Hash</th>
+                            <th>Pool Hash</th>
+                            <th>Blocks Found</th>
+                            <th>Total Paid</th>
+                            <th>Connections</th>
+                        </tr>
+                    </thead>
+                    {{ for(var p in it.stats.pools[pool].payments) { }}
+                        <tbody>
+                            <tr>
+                                <td>{{=it.stats.pools[pool].name}}</td>
+                                <td><span id="statsNetworkBlocks{{=pool}}">{{=it.stats.pools[pool].poolStats.networkBlocks}}</span></td>
+                                <td><span id="statsNetworkDiff{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.networkDiff)).toFixed(0)}}</span></td>
+                                <td><span id="statsNetworkSols{{=pool}}">{{=it.stats.pools[pool].poolStats.networkSolsString}}</span></td>
+                                <td><span id="statsHashrate{{=pool}}">{{=it.stats.pools[pool].hashrateString}}</span></td>
+                                <td><span id="#statsValidBlocks{{=pool}}">{{=it.stats.pools[pool].poolStats.validBlocks}}</span></td>
+                                <td><span id="statsTotalPaid{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.totalPaid)).toFixed(2)}}</span></td>
+                                <td><span id="statsNetworkConnections{{=pool}}">{{=it.stats.pools[pool].poolStats.networkConnections}}</span></td>
+                            </tr>
+                        </tbody>
+                    {{ } }}
+                </table>
+            </div>
+        </div>
+
         {{ for(var pool in it.stats.pools) { }}
             <div class="menuHeader" style="text-align: center; margin: 10px">
                     {{=it.stats.pools[pool].name}}
@@ -65,7 +98,7 @@
                 <div class="bannerHome">
                         <div class="boxLowerHeaderHome">Difficulty</div>
                                 <div class="infotextHome">
-                                        <span id="statsNetworkDiff{{=pool}}">{{=it.stats.pools[pool].poolStats.networkDiff}}</span>
+                                        <span id="statsNetworkDiff{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.networkDiff)).toFixed(0)}}</span>
                                 </div>                         
                 </div>
 
@@ -93,12 +126,12 @@
                 <div class="bannerHome">
                     <div class="boxLowerHeaderHome">Total Paid</div>
                         <div class="infotextHome">
-                            <span id="statsTotalPaid{{=pool}}"><div>{{=(parseFloat(it.stats.pools[pool].poolStats.totalPaid)).toFixed(2)}}</div>
+                            <span id="statsTotalPaid{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.totalPaid)).toFixed(2)}}</span>
                         </div>
                 </div>
 
                 <div class="bannerHome">
-                        <div class="boxLowerHeaderHome">Node Connections:</div>
+                        <div class="boxLowerHeaderHome">Connections:</div>
                             <div class="infotextHome">
                                 <span id="statsNetworkConnections{{=pool}}">{{=it.stats.pools[pool].poolStats.networkConnections}}</span>
                             </div>
