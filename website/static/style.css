@@ -20,7 +20,7 @@ html, body, button, input, select, textarea {
 
 /* **********Body********** */
 body {
-    background-color: var(--colour5);
+    background-color: var(--colour1);
     width: 100%;
     margin: auto;
 }
@@ -108,7 +108,7 @@ main {
     display: flex;
     flex-direction: column;
     min-width: 380px;
-    margin: 75px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 a {
@@ -132,10 +132,10 @@ a:hover {
 /* **********Footer********** */
 footer {
     text-align: center;
-    color: var(--colour2);
+    color: var(--colour3);
     text-decoration: none;
     font-family: var(--font2);
-    font-size: 12px;
+    font-size: 13px;
     padding: 15px;
     line-height: 24px;
 }
@@ -160,7 +160,7 @@ footer a{
     color: var(--colour3);
     font-family: var(--font1);
     text-align: center;
-    margin: 0px 0px 25px 0px;
+    margin: 25px 0px 25px 0px;
     text-shadow: 5px 5px 7px black;
 }
 
@@ -559,7 +559,7 @@ table {
     height: 280px;
 }
 .poolWrapper {
-    border: solid 5px var(--colour1);
+    border: solid 5px var(--colour5);
     padding: 5px;
     width: 1080px;
     margin: auto;
@@ -568,12 +568,12 @@ table {
     font-size: 1.4em;
     text-align: center;
     padding: 4px;
-    color: var(--colour3);
+    color: var(--colour7);
     font-family: var(--font1);
 }
 .poolMinerTable {
     font-family: var(--font2);
-    color: var(--colour6);
+    color: var(--colour7);
 
 }
 
@@ -612,11 +612,11 @@ input {
 
 /* PURE TABLE */
 .pure-table thead {
-    background-color:var(--colour3);
+    background-color:var(--colour4);
 }
 
 .pure-table tbody {
-    background-color:var(--colour1);
+    background-color:var(--colour2);
 }
 
 .pure-table-odd td,
