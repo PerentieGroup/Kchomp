@@ -48,6 +48,10 @@
                 </div>
         </div>
 
+    <div class="menuHeader" style="text-align: center; margin: 10px">
+            Pool Overview
+    </div>
+    
         {{ for(var pool in it.stats.pools) { }}
             <div class="menuHeader" style="text-align: center; margin: 10px">
                     {{=it.stats.pools[pool].name}}
