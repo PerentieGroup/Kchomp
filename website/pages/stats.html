@@ -1,0 +1,316 @@
+<style>
+@media screen and (max-width: 800px) {
+     /* phone size */
+    .buttonoptions {
+        width: 100%;
+        border-radius: 0px;
+        margin: 0px;
+        margin-bottom: 10px;
+    }
+    .blockbuttons{
+        width: 100%;
+    }
+    .BlockStats {
+        padding: 0px;
+    }
+    .boxStatsList {
+        width: 100%;
+    }
+    .boxStatsList > .pending {
+        margin-bottom: 0px;
+    }
+    .boxStatsList > .paid {
+        margin-bottom: 0px;
+    }
+    .blockfinds {
+        margin-top: 10px;
+    }
+    .pendpaidHeader {
+        padding: 25px;
+    }
+
+}
+
+</style>
+
+{{ function capitalizeFirstLetter(t){return t.charAt(0).toUpperCase()+t.slice(1)} }}
+{{ function readableDate(a){ return new Date(parseInt(a)).toLocaleString(); } }}
+
+<div class="GS-menu">
+        {{ for(var pool in it.stats.pools) { }}
+        <a href="#{{=it.stats.pools[pool].name}}"><button class="buttonoptions">{{=it.stats.pools[pool].name}}</button></a>
+        {{ } }}
+</div>
+
+<div class="flex-container">
+        <div id="topCharts">
+            <div class="chartWrapper">
+                <div class="chartLabel">Pool Hashrate</div>
+                <div class="chartHolder"><svg id="poolHashrate"></svg></div>
+            </div>
+        </div>
+</div>
+
+{{ for(var pool in it.stats.pools) { }}
+    <div class="flex-container">
+        <div id="menu" style="display: block; flex-direction: unset;">
+            <div class="poolHeader">
+                {{=it.stats.pools[pool].name}}
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-container">
+            <div class="bannerHome">
+                    <div class="boxLowerHeaderHome">Block Height</div>
+                            <div class="infotextHome">
+                                <span id="statsNetworkBlocks{{=pool}}">{{=it.stats.pools[pool].poolStats.networkBlocks}}</span>
+                            </div>                         
+            </div>
+        
+            <div class="bannerHome">
+                    <div class="boxLowerHeaderHome">Difficulty</div>
+                            <div class="infotextHome">
+                                    <span id="statsNetworkDiff{{=pool}}">{{=it.stats.pools[pool].poolStats.networkDiff}}</span>
+                            </div>                         
+            </div>
+        
+            <div class="bannerHome">
+                    <div class="boxLowerHeaderHome">Network Hash</div>
+                            <div class="infotextHome">
+                                    <span id="statsNetworkSols{{=pool}}">{{=it.stats.pools[pool].poolStats.networkSolsString}}</span>
+                            </div>                         
+            </div>
+        
+            <div class="bannerHome">
+                    <div class="boxLowerHeaderHome">Pool Hash</div>
+                        <div class="infotextHome">
+                            <span id="statsHashrate{{=pool}}">{{=it.stats.pools[pool].hashrateString}}</span> 
+                        </div>
+            </div>
+        
+            <div class="bannerHome">
+                <div class="boxLowerHeaderHome">Pool Workers</div>
+                    <div class="infotextHome">
+                            <div><span id="statsMiners{{=pool}}">{{=it.stats.pools[pool].minerCount}}</span> Miners</div>
+                            <div><span id="statsWorkers{{=pool}}">{{=it.stats.pools[pool].workerCount}}</span> Workers</div>
+                    </div>
+            </div>
+            
+            <div class="bannerHome">
+                <div class="boxLowerHeaderHome">Pool Luck</div>
+                    <div class="infotextHome">
+                            <span id="statsLuckDays{{=pool}}">{{=it.stats.pools[pool].luckDays}}</span> Days
+                    </div>
+            </div>
+            
+            <div class="bannerHome">
+                <div class="boxLowerHeaderHome">Node Connections:</div>
+                    <div class="infotextHome">
+                        <span id="statsNetworkConnections{{=pool}}">{{=it.stats.pools[pool].poolStats.networkConnections}}</span>
+                    </div>
+            </div>
+    </div>
+
+    <div class="flex-container">
+            <div class="poolWrapper">
+                <div class="poolMinerTable">
+                    <table class="pure-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 25%">Pool</th>
+                        <th style="width: 25%">Workers</th>
+                        <th style="width: 25%">Valid Shares</th>
+                        <th style="width: 25%">Invalid Shares</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>{{=it.stats.pools[pool].name}}</td>
+                        <td>{{=Object.keys(it.stats.pools[pool].workers).length}}</td>
+                        <td>{{=it.stats.pools[pool].poolStats.validShares}}</td>
+                        <td>{{=it.stats.pools[pool].poolStats.invalidShares}}</td>
+                    </tr>
+                    </tbody>
+
+                    <table class="pure-table">
+                        <thead>
+                        <tr>
+                            <th style="width: 25%">Total Blocks</th>
+                            <th style="width: 25%">Pending</th>
+                            <th style="width: 25%">Confirmed</th>
+                            <th style="width: 25%">Orphaned</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                                <td>{{=it.stats.pools[pool].poolStats.validBlocks}}</td>
+                                <td>{{=it.stats.pools[pool].blocks.pending}}</td>
+                                <td>{{=it.stats.pools[pool].blocks.confirmed}}</td>
+                                <td>{{=it.stats.pools[pool].blocks.orphaned}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+{{ } }}
+
+{{ for(var pool in it.stats.pools) { }}
+{{ var blockscomb = new Array; }}
+    <div class="flex-container">
+        <div class="blockfinds">
+            <div class="BlockStats">
+                <div class="pendpaidHeader">
+                    <span id="statsValidBlocks{{=pool}}">
+                        {{=it.stats.pools[pool].poolStats.validBlocks}}
+                    </span>
+                    Blocks Found 
+                    <span style="float:right;">
+                        <div>
+                            Paid: <span id="statsTotalPaid{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.totalPaid)).toFixed(4)}}</span> {{=it.stats.pools[pool].symbol}}
+                        </div>
+                    </span>
+                </div>
+
+                <div class="boxStatsList" style="margin-top: 9px;">
+                    <div id="{{=it.stats.pools[pool].name}}"></div>
+                    {{ for(var b in it.stats.pools[pool].pending.blocks) { }}
+                        {{ var block = it.stats.pools[pool].pending.blocks[b].split(":"); }}
+                        <div class="boxStatsList">
+                                <table class="pending" id="pendingTable">
+                                        <col style="width: 10%">
+                                        <col style="width: 30%">
+                                        <col style="width: 35%">
+                                        <col style="width: 10%">
+                                        <col style="width: 15%">
+                                    <tr>
+                                        <th>Block</th>
+                                        <th>Date</th>
+                                        <th>Miner</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr style="height: 35px;">
+                                        <td>
+                                            {{if (String(it.stats.pools[pool].name).startsWith("komodo")) { }}
+                                            <a href="https://kmdexplorer.io/block/{{=block[0]}}" target="_blank">{{=block[2]}}</a>
+                                                {{ } else if (String(it.stats.pools[pool].name).startsWith("pirate")) { }}
+                                                <a href="http://pirate.explorer.dexstats.info/block/{{=block[0]}}" target="_blank">{{=block[2]}}</a>
+                                            {{ } else { }}
+                                                {{=block[2]}}
+                                            {{ } }}
+                                        </td>
+                                        <td>
+                                            {{if (block[4] != null) { }}
+                                                <span style="padding-left: 18px;"><small>{{=readableDate(block[4])}}</small></span>
+                                            {{ } }}
+                                        </td>
+                                        <td>
+                                            <a href="/workers/{{=block[3].split('.')[0]}}">{{=block[3].length > 40 ? block[3].substring(0, 10) + '...' + block[3].substring(block[3].length-15, block[3].length): block[3]}}</a>
+                                        </td>
+                                        <td>
+                                            TBA
+                                        </td>
+                                        <td>
+                                            {{if (it.stats.pools[pool].pending.confirms) { }}
+                                                {{if (it.stats.pools[pool].pending.confirms[block[0]]) { }}
+                                                <span style="color: red;"><small>PENDING</small></span>
+                                                    {{ } else { }}
+                                                    <span style="color: red;"><small>CONFIRMING</small></span>
+                                                    {{ } }}
+                                            {{ } else { }}
+                                                <span style="color: red;"><small>CONFIRMING</small></span>
+                                            {{ } }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            {{ blockscomb.push(block);}}
+                    {{ } }}
+
+                    {{ var i=0; for(var b in it.stats.pools[pool].confirmed.blocks) { }}
+                        {{ if (i < 10) { i++; }}
+                            {{ var block = it.stats.pools[pool].confirmed.blocks[b].split(":"); }}
+                            <table class="paid" id="paidTable">
+                                <col style="width: 10%">
+                                <col style="width: 30%">
+                                <col style="width: 35%">
+                                <col style="width: 10%">
+                                <col style="width: 15%">
+                                    <tr>
+                                        <th>Block</th>
+                                        <th>Date</th>
+                                        <th>Miner</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr style="height: 35px;">
+                                        <td>
+                                            {{if (String(it.stats.pools[pool].name).startsWith("komodo")) { }}
+                                            <a href="https://kmdexplorer.io/block/{{=block[0]}}" target="_blank">{{=block[2]}}</a>
+                                                {{ } else if (String(it.stats.pools[pool].name).startsWith("pirate")) { }}
+                                                <a href="http://pirate.explorer.dexstats.info/block/{{=block[0]}}" target="_blank">{{=block[2]}}</a>
+                                            {{ } else { }}
+                                            {{=block[2]}}
+                                            {{ } }}
+                                        </td>
+                                        <td>
+                                        {{if (block[4] != null) { }}
+                                            <span style="padding-left: 18px;"><small>{{=readableDate(block[4])}}</small></span>
+                                        {{ } }}
+                                        </td>
+                                        <td>
+                                            <a href="/workers/{{=block[3].split('.')[0]}}">{{=block[3].length > 40 ? block[3].substring(0, 10) + '...' + block[3].substring(block[3].length-15, block[3].length): block[3]}}</a>
+                                        </td>
+                                        <td>
+                                            TBA
+                                        </td>
+                                        <td>
+                                            <span style="color: green;"><small>PAID</small></span>    
+                                        </td>
+                                    </tr>
+                                </table>
+                            {{blockscomb.push(block);}}
+                        {{ } }}
+                    {{ } }}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ } }}
+
+<script>
+    document.querySelector('main').appendChild(document.createElement('script')).src = '/static/stats.js';
+
+    $(function() {
+        window.statsSource = new EventSource("/api/live_stats");
+
+        statsSource.addEventListener('message', function (e) {
+            var stats = JSON.parse(e.data);
+            for (var pool in stats.pools) {
+				$('#statsMiners' + pool).text(stats.pools[pool].minerCount);
+                $('#statsWorkers' + pool).text(stats.pools[pool].workerCount);
+                $('#statsHashrate' + pool).text(stats.pools[pool].hashrateString);
+				$('#statsHashrateAvg' + pool).text(getReadableHashRateString(calculateAverageHashrate(pool)));
+				$('#statsLuckDays' + pool).text(stats.pools[pool].luckDays);
+				$('#statsValidBlocks' + pool).text(stats.pools[pool].poolStats.validBlocks);
+				$('#statsTotalPaid' + pool).text((parseFloat(stats.pools[pool].poolStats.totalPaid)).toFixed(8));
+				$('#statsNetworkBlocks' + pool).text(stats.pools[pool].poolStats.networkBlocks);
+				$('#statsNetworkDiff' + pool).text(stats.pools[pool].poolStats.networkDiff);
+				$('#statsNetworkSols' + pool).text(getReadableNetworkHashRateString(stats.pools[pool].poolStats.networkSols));
+				$('#statsNetworkConnections' + pool).text(stats.pools[pool].poolStats.networkConnections);
+            }
+        });
+    });
+
+	function getReadableNetworkHashRateString(hashrate){
+		hashrate = (hashrate * 1000000);
+		if (hashrate < 1000000)
+			return '0 Sol';
+		var byteUnits = [ ' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s' ];
+		var i = Math.floor((Math.log(hashrate/1000) / Math.log(1000)) - 1);
+		hashrate = (hashrate/1000) / Math.pow(1000, i + 1);
+		return hashrate.toFixed(2) + byteUnits[i];
+	}
+</script>
