@@ -1,6 +1,6 @@
 <script src="/static/home.js"></script>
 
-<div class="titlesHome">
+<div class="homeBox">
 
     <div class="welcomeText">
         KCHOMP
@@ -10,6 +10,32 @@
         Welcome to the best open source Komodo & KMD Assetchain mining pool.
     </div>
 
+    <div class="features">
+        <div class="fHead">
+            Multi-Coin
+        </div>
+            <div class="fBody">
+                Enjoy all your favourite mining on one pool. 
+            </div>
+    </div>
+
+    <div class="features">
+        <div class="fHead">
+            Easy to use
+        </div>
+            <div class="fBody">
+                Easy to setup and configure.
+            </div>
+    </div>
+
+    <div class="features">
+            <div class="fHead">
+                Up-to-date
+            </div>
+                <div class="fBody">
+                    Always being updated with the latest configuration requirements.
+                </div>
+    </div>
 </div>
 
 <div id="holder">
@@ -19,39 +45,10 @@
             Pool Features
         </div>
             
-        <div class="flex-container">
-            <div class="features">
-                <div class="fHead">
-                    Multi-Coin
-                </div>
-                    <div class="fBody">
-                        Enjoy all your favourite mining on one pool. 
-                    </div>
-            </div>
-
-            <div class="features">
-                <div class="fHead">
-                    Easy to use
-                </div>
-                    <div class="fBody">
-                        Easy to setup and configure.
-                    </div>
-            </div>
-
-            <div class="features">
-                    <div class="fHead">
-                        Up-to-date
-                    </div>
-                        <div class="fBody">
-                            Always being updated with the latest configuration requirements.
-                        </div>
-                </div>
-        </div>
-
     <div class="menuHeader" style="text-align: center; margin: 10px">
             Pool Overview
     </div>
-    
+
         {{ for(var pool in it.stats.pools) { }}
             <div class="menuHeader" style="text-align: center; margin: 10px">
                     {{=it.stats.pools[pool].name}}
