@@ -6,8 +6,20 @@
     }
 }
 
-.coinInfoList {
-    height: 30px;
+table.coinInfoTable {
+    padding: 15px;
+}
+
+table.coinInfoTable, tr {
+    height: 50px
+}
+
+table.coinInfoTable, th {
+    background-color: var(--colour4);
+}
+
+table.coinInfoTable, td {
+    background-color: var(--colour5);
 }
 </style>
 
@@ -27,23 +39,23 @@
                     <div class="configDetails" id="configDetails">
                         <div class="coinInfoRows">
                             <div class="coinInfoRowKeys">
-                                <div class="coinInfoList">Min Payment</div>
-                                <div class="coinInfoList">Payment Frequency (mins)</div>
-                                <div class="coinInfoList">Fee (%)</div>
-                                <div class="coinInfoList">Algorithm:</div>
-                                <div class="coinInfoList">Username:</div>
-                                <div class="coinInfoList">Password:</div>
-                                <div class="coinInfoList">Server/Stratum:</div>
+                                <div class="">Min Payment</div>
+                                <div class="">Payment Frequency (mins)</div>
+                                <div class="">Fee (%)</div>
+                                <div class="">Algorithm:</div>
+                                <div class="">Username:</div>
+                                <div class="">Password:</div>
+                                <div class="">Server/Stratum:</div>
                                 {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                    <div class="coinInfoList">{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</div>
+                                    <div class="">{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</div>
                                 {{ } }}
                             </div>
                             <div class="coinInfoRowValues">
                                 <div class="coinInfoUsername">
-                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.minPayment}}</div>
-                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.paymentFreq}}</div>
-                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.poolFee}}</div>
-                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.algorithm}}</div>
+                                    <div class="">{{=it.poolsConfigs[pool].coin.minPayment}}</div>
+                                    <div class="">{{=it.poolsConfigs[pool].coin.paymentFreq}}</div>
+                                    <div class="">{{=it.poolsConfigs[pool].coin.poolFee}}</div>
+                                    <div class="">{{=it.poolsConfigs[pool].coin.algorithm}}</div>
                                     {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} wallet <b style="color:#C99631;">zS</b> address<br>
                                     {{ } else if (it.poolsConfigs[pool].coin) { }}
@@ -51,10 +63,10 @@
                                     {{ } else { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
                                     {{ } }}
-                                    <div class="coinInfoList">anything(it doesn't matter what)</div>
-                                    <div class="coinInfoList">{{=it.portalConfig.website.stratumHost}}</div>
+                                    <div class="">anything(it doesn't matter what)</div>
+                                    <div class="">{{=it.portalConfig.website.stratumHost}}</div>
                                     {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                        <div class="coinInfoList">{{=port}}</div>
+                                        <div class="">{{=port}}</div>
                                     {{ } }}
                                 </div>
                             </div>
@@ -72,7 +84,7 @@
                             </div>
     
                         <div class="configDetails" id="configDetails">
-                            <table class="coinInfoRows">
+                            <table class="coinInfoTable">
                                 <tr>
                                     <th>Min Payment</th>
                                     <td>{{=it.poolsConfigs[pool].coin.minPayment}}</td>
