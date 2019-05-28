@@ -369,6 +369,7 @@ code {
     padding: 10px;
     margin: auto;
     margin-top: 20px;
+    border: 1px solid black;
 }
 
 .configDetails {
@@ -402,6 +403,22 @@ code {
     margin: 15px;
 }
 
+.coinInfoTable {
+    padding: 5px;
+    background-color: black;
+}
+
+.coinInfoTable tr {
+    height: 35px
+}
+
+.coinInfoTable th {
+    background-color: var(--colour4);
+}
+
+.coinInfoTable td {
+    background-color: var(--colour2);
+}
 /* ------------- 
 #coinInfoBackground{
     transition-duration: 400ms;
