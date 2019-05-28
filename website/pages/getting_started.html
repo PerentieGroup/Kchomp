@@ -5,23 +5,6 @@
         width: 100%;
     }
 }
-
-.coinInfoTable {
-    padding: 5px;
-    background-color: black;
-}
-
-.coinInfoTable tr {
-    height: 50px
-}
-
-.coinInfoTable th {
-    background-color: var(--colour4);
-}
-
-.coinInfoTable td {
-    background-color: var(--colour2);
-}
 </style>
 
 <div id="flex-container">
@@ -33,30 +16,31 @@
         <div>
             {{ for (var pool in it.poolsConfigs) { }}
                 <div class="poolConfig">
-                        <div class="coinInfoHeader">
-                                <span class="coinInfoName">{{=it.poolsConfigs[pool].coin.name}}</span> Configuration
-                        </div>
+                    <div class="coinInfoHeader">
+                            <span class="coinInfoName">{{=it.poolsConfigs[pool].coin.name}}</span> Configuration
+                    </div>
 
                     <div class="configDetails" id="configDetails">
-                        <div class="coinInfoRows">
-                            <div class="coinInfoRowKeys">
-                                <div class="">Min Payment</div>
-                                <div class="">Payment Frequency (mins)</div>
-                                <div class="">Fee (%)</div>
-                                <div class="">Algorithm:</div>
-                                <div class="">Username:</div>
-                                <div class="">Password:</div>
-                                <div class="">Server/Stratum:</div>
-                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                    <div class="">{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</div>
-                                {{ } }}
-                            </div>
-                            <div class="coinInfoRowValues">
-                                <div class="coinInfoUsername">
-                                    <div class="">{{=it.poolsConfigs[pool].coin.minPayment}}</div>
-                                    <div class="">{{=it.poolsConfigs[pool].coin.paymentFreq}}</div>
-                                    <div class="">{{=it.poolsConfigs[pool].coin.poolFee}}</div>
-                                    <div class="">{{=it.poolsConfigs[pool].coin.algorithm}}</div>
+                        <table class="coinInfoTable">
+                            <tr>
+                                <th>Minimum Payment</th>
+                                <td>{{=it.poolsConfigs[pool].coin.minPayment}}</td>
+                            </tr>
+                            <tr>
+                                <th>Payment Frequency (mins)</th>
+                                <td>{{=it.poolsConfigs[pool].coin.paymentFreq}}</td>
+                            </tr>
+                            <tr>
+                                <th>Fee (%)</th>
+                                <td>{{=it.poolsConfigs[pool].coin.poolFee}}</td>
+                            </tr>
+                            <tr>
+                                <th>Algorithm</th>
+                                <td>{{=it.poolsConfigs[pool].coin.algorithm}}</td>
+                            </tr>
+                            <tr>
+                                <th>Username:</th>
+                                <td>
                                     {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} wallet <b style="color:#C99631;">zS</b> address<br>
                                     {{ } else if (it.poolsConfigs[pool].coin) { }}
@@ -64,76 +48,26 @@
                                     {{ } else { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
                                     {{ } }}
-                                    <div class="">anything(it doesn't matter what)</div>
-                                    <div class="">{{=it.portalConfig.website.stratumHost}}</div>
-                                    {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                        <div class="">{{=port}}</div>
-                                    {{ } }}
-                                </div>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Password:</th>
+                                <td>ANYTHING</td>
+                            </tr>
+                            <tr>
+                                <th>Server/Stratum:</th>
+                                <td>{{=it.portalConfig.website.stratumHost}}</td>
+                            </tr>
+                            {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                <tr>
+                                    <th>{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</th>
+                                    <td>{{=port}}</td>
+                                </tr>
+                            {{ } }}
+                        </table>
                     </div>
                 </div>
             {{ } }}
         </div>
-
-            <div>
-                {{ for (var pool in it.poolsConfigs) { }}
-                    <div class="poolConfig">
-                            <div class="coinInfoHeader">
-                                    <span class="coinInfoName">{{=it.poolsConfigs[pool].coin.name}}</span> Configuration
-                            </div>
-    
-                        <div class="configDetails" id="configDetails">
-                            <table class="coinInfoTable">
-                                <tr>
-                                    <th>Min Payment</th>
-                                    <td>{{=it.poolsConfigs[pool].coin.minPayment}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment Frequency (mins)</th>
-                                    <td>{{=it.poolsConfigs[pool].coin.paymentFreq}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Fee (%)</th>
-                                    <td>{{=it.poolsConfigs[pool].coin.poolFee}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <td>{{=it.poolsConfigs[pool].coin.algorithm}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Username:</th>
-                                    <td>
-                                        {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
-                                            your {{=it.poolsConfigs[pool].coin.name}} wallet <b style="color:#C99631;">zS</b> address<br>
-                                        {{ } else if (it.poolsConfigs[pool].coin) { }}
-                                            your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
-                                        {{ } else { }}
-                                            your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
-                                        {{ } }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Password:</th>
-                                    <td>ANYTHING</td>
-                                </tr>
-                                <tr>
-                                    <th>Server/Stratum:</th>
-                                    <td>{{=it.portalConfig.website.stratumHost}}</td>
-                                </tr>
-                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                    <tr>
-                                        <th>{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</th>
-                                        <td>{{=port}}</td>
-                                    </tr>
-                                {{ } }}
-                            </table>
-                        </div>
-                    </div>
-                {{ } }}
-            </div>
-
-
     </div>
 </div>
