@@ -590,7 +590,7 @@ table {
 }
 .poolMinerTable {
     font-family: var(--font2);
-    color: var(--colour7);
+    color: black;
 
 }
 
