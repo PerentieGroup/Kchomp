@@ -1,68 +1,692 @@
-html, button, input, select, textarea, .pure-g [class *= "pure-u"], .pure-g-r [class *= "pure-u"]{
-    font-family: 'Open Sans', sans-serif;
+html, body, button, input, select, textarea {
+    font-family: var(--font2);
 }
 
-html{
-    background: #2d2d2d;
-    overflow-y: scroll;
+:root {
+    --colour1: #1b2e19;
+    --colour2: #243f22;
+    --colour3: #2e4f2b;
+    --colour4: #376034;
+    --colour5: #40713d;
+    --colour6: #4a8146;
+    --colour7: #53924f;
+ 
+
+    --font1: 'Karla', sans-serif;
+    --font2: 'Russo One', sans-serif;
+    --font3: 'Merriweather Sans', sans-serif;
 }
 
-body{
+
+/* **********Body********** */
+body {
+    background-color: var(--colour1);
+    width: 100%;
+    margin: auto;
+}
+
+/* **********Header********** */
+
+header > .navbar {
+    width: 100%;
+    background-color: var(--colour4);
+    height: 50px;
+    border-bottom: 2px solid black
+}
+
+header > .navbar a{
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 15px 15px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+header > .navbar a:hover {
+    background-color: black;
+    color: white;
+  }
+
+header > .navbar a.home {
+    background-color: black;
+    color: white;
+  }
+
+header > .navbar a.home:hover {
+    color: var(--colour4);
+}
+
+/* Header Button */
+header > .menu-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--colour4);
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+header > .menu-list > a > .button {
+    display: block;
+    color: var(--colour6);
+    background-color: var(--colour1);
+    height: 50px;
+    font-family: var(--font3);
+    text-align: left;
+    font-size: 1.5em;
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.3s;
+    cursor: pointer;
+    float: left;
+}
+
+header > .menu-list > a > .button:hover {
+    background-color: var(--colour6);
+    color: var(--colour1);
+}
+
+header > .menu-list > a > .button:active {
+    transition-duration: 0.1s;
+    background-color: var(--colour6);
+    color: var(--colour6);
+}
+
+.lookUp {
+    font-size: 15px;
+    text-align: center;
+    color: var(--colour3);
+    font-family: var(--font2);
+}
+
+/* **********Main********** */
+main {
+    position: relative;
     display: flex;
     flex-direction: column;
-    max-width: 1160px;
-    margin: 0 auto;
+    min-width: 380px;
+    margin: 0px 0px 0px 0px;
 }
 
-header > .home-menu{
-    background: inherit !important;
-    height: 54px;
-    display: flex;
-}
-
-header > .home-menu > a.pure-menu-heading, header > .home-menu > ul, header > .home-menu > ul > li{
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    line-height: normal !important;
-}
-
-header > .home-menu > a.pure-menu-heading{
-    color: white;
-    font-size: 1.5em;
-}
-
-header > .home-menu > ul > li > a{
-    color: #ced4d9;
-}
-
-header > .home-menu > ul > li > a:hover, header > .home-menu > ul > li > a:focus{
-    background: inherit !important;
-}
-
-header > .home-menu > ul > li > a:hover, header > .home-menu > ul > li.pure-menu-selected > a{
-    color: white;
-}
-
-main{
-    background-color: #ebf4fa;
-    position: relative;
-}
-
-footer{
-    text-align: center;
-    color: #b3b3b3;
+a {
     text-decoration: none;
-    font-size: 0.8em;
+    color: var(--colour6);
+    font-family: var(--font2)
+}
+
+a:hover {
+    color: var(--colour2);
+}
+
+.heading {
+    text-align: center;
+    font-size: 3.5em;
+    font-family: var(--font1);
+    color: var(--colour4);
+    margin: 10px;
+}
+
+/* **********Footer********** */
+footer {
+    text-align: center;
+    color: var(--colour3);
+    text-decoration: none;
+    font-family: var(--font2);
+    font-size: 13px;
     padding: 15px;
     line-height: 24px;
 }
 
 footer a{
-    color: #fff;
+    color: var(--colour2);
     text-decoration: none;
 }
 
-footer iframe{
-    vertical-align: middle;
+/* UKNOWN/RANDOM */
+
+.content {
+    margin:15px;
+}
+
+/* **********PAGE STYLES********** */
+
+/* ***HOME*** */
+
+.homeBox {
+    margin: 50px 20px 50px 75px;
+}
+
+.welcomeText {
+    font-size: 4em;
+    font-weight: 1000;
+    color: var(--colour3);
+    font-family: var(--font1);
+    text-shadow: 0px 0px 20px black;
+}
+
+.welcomeSubText {
+    font-size: 25px; 
+    color: var(--colour7); 
+    font-weight: 900;
+    font-family: var(--font1);
+    text-shadow: 0px 0px 10px black;
+    margin-bottom: 50px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  
+.bannerHome {
+    color: var(--colour6);
+    background-color: var(--colour1);
+    border: 5px solid var(--colour3);
+    width: 140px;
+    height: 70px;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 2px;
+}
+
+.bannerHome > .infotextHome {
+    font-family: var(--font2);
+    font-size: 0.85em;
+}
+
+.bannerHome > .boxLowerHeaderHome{
+    font-family: var(--font1);
+    background-color: var(--colour3);
+    border-bottom: 1px solid var(--colour6);
+}
+
+.info {
+    color: var(--colour2);
+    font-family: var(--font1);
+    text-align: center;
+    font-size: 1.3em;
+    max-width: 700px;
+    margin: auto;
+}
+
+.features {
+    margin-bottom: 25px;
+}
+
+.fHead {
+    color: var(--colour5);
+    font-size: 35px;
+    font-family: var(--font3);
+    text-shadow: 0px 0px 15px black;
+}
+
+.fBody {
+    color: var(--colour3);
+    font-size: 17px;
+    font-family: var(--font3);
+    text-shadow: 0px 0px 9px black;
+}
+
+/* */
+.banner {
+    color: var(--colour6);
+    background-color: var(--colour1);
+    width: 350px;
+    height: 255px;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+.banner > .boxStats {
+    padding-top: 40px;
+    padding-left: 45px;
+    padding-right: 45px;
+    max-width: 250px;
+    height: 200px;
+}
+
+.banner > .boxStats > .infotext {
+    font-family: var(--font2);
+    font-size: 0.91em;
+}
+
+.boxStatsList{
+    flex-flow: column wrap;
+    align-content: center;
+    min-width: 330px;
+}
+.boxStatsList > .pending {
+    padding: 5px 20px;
+    margin-bottom: 9px;
+    background-color: var(--colour3);
+    border: 3px solid var(--colour1);
+    font-family: var(--font2);
+    color: black;
+
+}
+
+#pending {
+    display: none;
+}
+
+.boxStatsList > .paid {
+    padding: 5px 20px;
+    margin-bottom: 9px;
+    background-color: var(--colour1);
+    border: 3px solid var(--colour3);
+    font-family: var(--font2);
+    color: black;
+}
+
+#paid {
+    display: none;
+}
+
+.boxStatsList > div > div{
+    padding: 3px;
+}
+
+/* ***GETTING STARTED*** */
+#holder{
+    display: flex;
+    flex-direction: column;
+}
+
+.GS-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.GS-menu > a {
+    margin: 10px;
+    width: 250px;
+    height: 50px;
+}
+
+.buttonoptions {
+    background-color: var(--colour5);
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.4em;
+    color: var(--colour2);
+    border: 2px solid var(--colour2);
+    cursor: pointer;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    font-family: var(--font1);
+}
+
+.buttonoptions:hover {
+    background-color: var(--colour2);
+    color: var(--colour5);
+}
+
+
+#menu{
+    max-width: 1080px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#menu > .menuHeader{
+    font-family: var(--font1);
+    color: var(--colour3);
+    border-bottom: 2px solid var(--colour3);
+    font-size: 1.6em;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+#menu > .words {
+    margin:15px;
+    font-family: var(--font2);
+    color: var(--colour2);
+    font-size: 0.8em;
+}
+
+code {
+    font-family: monospace, serif;
+    display: block;
+    margin: 15px;
+    padding: 20px;
+    background-color: var(--colour1);
+    font-size: 1em;
+    color: black;
+}
+
+.poolConfig {
+    max-width: 900px;
+    background-color: var(--colour3);
+    padding: 10px;
+    margin: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+.configDetails {
+    background-color: var(--colour1);
+    border-top: 2px solid black;
+
+}
+
+.coinLogo {
+    height: 100px;
+}
+
+.coinInfoHeader {
+    color: black;
+    font-family: var(--font2);
+    font-size: 1.4em;
+    text-align: center;
+    padding: 5px;
+}
+
+.coinInfoRows {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.sectionwords {
+    color: var(--colour2);
+    font-size: 1em;
+    font-family: var(--font2);
+    margin: 15px;
+}
+
+.coinInfoTable {
+    padding: 5px;
+    background-color: black;
+}
+
+.coinInfoTable tr {
+    height: 35px
+}
+
+.coinInfoTable th {
+    background-color: var(--colour4);
+}
+
+.coinInfoTable td {
+    background-color: var(--colour2);
+}
+/* ------------- 
+#coinInfoBackground{
+    transition-duration: 400ms;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.0;
+}
+#coinInfo{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 750px;
+    min-height: 400px;
+    top: 50px;
+    left: 50%;
+    margin-left: -375px;
+    position: absolute;
+    background-color: var(--colour2);
+}
+#coinInfo > div:first-of-type{
+    font-size: 1.8em;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 35px;
+}
+
+#coinInfoRows > div,
+.coinInfoRows > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+}
+#coinInfoRows > div > div,
+.coinInfoRows > div > div {
+    padding: 3px;
+}
+#coinInfoRowKeys,
+.coinInfoRowKeys {
+    font-weight: bold;
+    padding-right: 30px;
+}
+#coinInfoRowKeys .coinInfoSubtle,
+.coinInfoRowKeys .coinInfoSubtle {
+    font-weight: normal;
+}
+#coinInfoClose{
+    position: absolute;
+    font-size: 3em;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+#coinInfoClose:hover{
+    color: #50f0e3;
+}
+*/
+
+/* ***STATS*** */
+#topCharts{
+    width: 1080px;
+    border: 5px solid var(--colour1);
+    padding: 5px;
+    margin: 25px 0px 0px 0px;
+}
+
+#topCharts > div > div > svg{
+    display: block;
+    height: 280px;
+}
+
+.chartWrapper{
+    background-color: var(--colour3);
+    padding: 15px;
+}
+
+.chartLabel{
+    font-size: 2.0em;
+    font-family: var(--font1);
+    color: var(--colour6);
+    text-align: center;
+    padding: 5px;
+}
+
+.BlockStats {
+    background-color: var(--colour5);
+    color: var(--colour2);
+    border: 5px solid var(--colour2);
+    margin: auto;
+    padding: 10px 25px 25px 25px;
+}
+
+.blockfinds {
+    max-width: 1080px;
+    width: 1080px;
+    margin: auto;
+    margin-top: 25px;
+}
+
+table {
+    font-family: var(--font2);
+    text-align: center;
+    width: 100%;
+}
+
+#paidTable th {
+    background-color: var(--colour3)
+}
+
+#pendingTable th {
+    background-color: var(--colour1)
+}
+
+.pendpaidHeader {
+    font-size: 1.3em;
+    font-family: var(--font1);
+    color: var(--colour1)
+}
+
+.poolHeader{
+    font-family: var(--font1);
+    color: var(--colour3);
+    border-bottom: 1px solid var(--colour3);
+    font-size: 1.6em;
+    padding: 4px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    width: 400px;
+}
+
+/* ***WORKERS*** */
+#bottomNotes {
+    display: block;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
+}
+
+#topPool {
+    display: inline;
+    justify-content: center;
+}
+
+#topPool > div > div > svg {
+    display: block;
+    height: 280px;
+}
+.poolWrapper {
+    border: solid 5px black;
+    padding: 4px;
+    width: 1080px;
+    margin: auto;
+}
+.poolLabel {
+    font-size: 1.4em;
+    text-align: center;
+    padding: 4px;
+    color: var(--colour7);
+    font-family: var(--font1);
+}
+.poolMinerTable {
+    font-family: var(--font2);
+    color: black;
+
+}
+
+input {
+    width: 100px;
+    height: 24px;
+    border: 2px solid var(--colour3);
+    border-radius: 5px 5px 5px 5px;
+}
+
+.input-group-btn > button {
+    color: var(--colour6);
+    background-color: var(--colour3);
+    border: 2px solid var(--colour3);
+    border-radius: 5px 5px 5px 5px;
+    width: 50px;
+    height: 30px;
+    font-family: var(--font1);
+    text-align: center;
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.input-group-btn > button:hover {
+    background-color: var(--colour6);
+    color: var(--colour3);
+}
+
+.input-group-btn > button:active {
+    transition-duration: 0.1s;
+    background-color: var(--colour6);
+    border-color: var(--colour6);
+    color: var(--colour6);
+}
+
+/* PURE TABLE */
+.pure-table thead {
+    background-color: var(--colour5);
+}
+
+.pure-table tbody {
+    background-color: var(--colour3);
+}
+
+.pure-table-odd td,
+.pure-table-even td {
+    background-color: var(--colour1);
+}
+
+/* ***PAYMENTS*** */
+.paymentblocks {
+    max-width:500px;
+    word-wrap:break-word;
+}
+
+#bottomNotes {
+    display: block;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
+}
+
+/* ***WORKER STATS*** */
+#boxesWorkers {
+    color: var(--colour6);
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1080px;
+}
+
+.bannerWorkers {
+    color: var(--colour6);
+    background-color: var(--colour1);
+    border: 5px solid var(--colour3);
+    height: 220px;
+    width: 225px;
+    text-align: center;
+    font-size: 1.3em;
+    margin: 10px;
+}
+
+.bannerWorkers > .boxStats > .infotext {
+    font-family: var(--font2);
+    font-size: 0.85em;
+    padding-top: 4px;
+}
+
+.boxLowerHeader{
+    font-size: 1.3em;
+    font-family: var(--font1);
+    padding-bottom: 5px;
+    background-color: var(--colour3);
+    border-bottom: 1px solid black;
 }

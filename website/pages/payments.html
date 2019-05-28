@@ -1,49 +1,17 @@
-<style>
-    #bottomNotes {
-        display: block;
-        padding-left: 18px;
-        padding-right: 18px;
-        padding-bottom: 18px;
-    }
-    #topPool {
-        padding-top: 18px;
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-    #topPool > div > div > svg {
-        display: block;
-        height: 280px;
-    }
-    .poolWrapper {
-        border: solid 1px #c7c7c7;
-        border-radius: 5px;
-        padding: 5px;
-        margin-bottom: 18px;
-    }
-    .poolLabel {
-        font-size: 1.2em;
-        text-align: center;
-        padding: 4px;
-    }
-    .poolMinerTable {
-    }
-    table {
-        width: 100%;
-    }
-</style>
-
 <script type="text/javascript">
   $(function () {
     $(document).tooltip({
         content: function () {
             return $(this).prop('title');
         },
-        show: null,
+        show: null, 
         close: function (event, ui) {
             ui.tooltip.hover(
+
             function () {
                 $(this).stop(true).fadeTo(400, 1);
             },
+
             function () {
                 $(this).fadeOut("400", function () {
                     $(this).remove();
@@ -53,33 +21,55 @@
     });
 });
 </script>
-{{ function readableDate(a){ return new Date(parseInt(a)).toString(); } }}
+{{ function readableDate(a){ return new Date(parseInt(a)).toLocaleString(); } }}
+
 {{ for(var pool in it.stats.pools) { }}
-<table>
-    <thead>
-    <tr>
-        <th>Blocks</th>
-        <th>Time</th>
-        <th>Miners</th>
-        <th>Shares</th>
-        <th>Amount</th>
-    </tr>
-    </thead>
-        {{ for(var p in it.stats.pools[pool].payments) { }}
-            <tr>
-                <td>
-                    {{ if (it.poolsConfigs[pool].coin.explorer && it.poolsConfigs[pool].coin.explorer.txURL) { }}
-                        <a href="{{=it.poolsConfigs[pool].coin.explorer.txURL + it.stats.pools[pool].payments[p].txid}}" title="View transaction" target="_blank">{{=it.stats.pools[pool].payments[p].blocks}}</a>
-                    {{ } else { }}
-                        {{=it.stats.pools[pool].payments[p].blocks}}
+    <div class="flex-container" style="margin: 40px 0px 40px 0px">
+        <div class="poolWrapper">
+                <div class="poolLabel">
+                    <div class="header" style="font-size: 1.4em">{{=it.stats.pools[pool].name}} Payments List</div>				
+                        <div><span id="statsTotalPaid{{=pool}}">{{=(parseFloat(it.stats.pools[pool].poolStats.totalPaid)).toFixed(8)}}</span> Total Paid </div>
+                </div>
+        </div>
+        
+        <div class="poolWrapper">
+            <div class="poolMinerTable">
+                <table class="pure-table" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th>Blocks</th>
+                            <th>Time</th>
+                            <th>Miners</th>
+                            <th>Shares</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    {{ for(var p in it.stats.pools[pool].payments) { }}
+                        <tbody>
+                            <tr>
+                                <!-- Need to add getting the block explorer from the /coin.json file -->
+                                <td class="paymentblocks" title="{{=it.stats.pools[pool].payments[p].opid}}">
+                                    {{if (String(it.stats.pools[pool].name).startsWith("zcash")) { }}
+                                        <a href="https://explorer.zcha.in/tx/{{=it.stats.pools[pool].payments[p].txid}}"  title="View transaction" target="_blank">{{=it.stats.pools[pool].payments[p].blocks}}</a>
+                                    {{ } else if (String(it.stats.pools[pool].name).startsWith("komodo")) { }}
+                                        <a href="https://kmdexplorer.io/tx/{{=it.stats.pools[pool].payments[p].txid}}"  title="View transaction" target="_blank">{{=it.stats.pools[pool].payments[p].blocks}}</a>
+                                    {{ } else if (typeof it.stats.pools[pool].payments[p].txid !== 'undefined' && String(it.stats.pools[pool].name).startsWith("pirate")) { }}
+                                        <a href="http://pirate.explorer.dexstats.info/tx/{{=it.stats.pools[pool].payments[p].txid}}"  title="View transaction" target="_blank">{{=it.stats.pools[pool].payments[p].blocks}}</a>
+                                    {{ } else if (String(it.stats.pools[pool].name).startsWith("redfox labs")) { }}
+                                    <a href="http://rfox.explorer.dexstats.info/tx/{{=it.stats.pools[pool].payments[p].txid}}"  title="View transaction" target="_blank">{{=it.stats.pools[pool].payments[p].blocks}}</a>
+                                    {{ } else { }}
+                                        {{=it.stats.pools[pool].payments[p].blocks}}
+                                    {{ } }}
+                                </td>
+                                <td>{{=readableDate(it.stats.pools[pool].payments[p].time)}}</td>
+                                <td>{{=it.stats.pools[pool].payments[p].miners}}</td>
+                                <td>{{=Math.round(it.stats.pools[pool].payments[p].shares)}}</td>
+                                <td>{{=(parseFloat(it.stats.pools[pool].payments[p].paid)).toFixed(2)}} {{=it.stats.pools[pool].symbol}}</td>
+                            </tr>
+                        </tbody>
                     {{ } }}
-                </td>
-                <td>{{=readableDate(it.stats.pools[pool].payments[p].time)}}</td>
-                <td>{{=it.stats.pools[pool].payments[p].miners}}</td>
-                <td>{{=Math.round(it.stats.pools[pool].payments[p].shares)}}</td>
-                <td>{{=it.stats.pools[pool].payments[p].paid}} {{=it.stats.pools[pool].symbol}}</td>
-            </tr>
-        {{ } }}
-</table>
-</div>
+                </table>
+            </div>
+        </div>
+    </div>
 {{ } }}

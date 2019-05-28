@@ -1,17 +1,16 @@
 <!doctype html>
 
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
+   
+    <meta name="language" content="English"> 
 
-    <link rel="icon" type="image/png" href="/static/favicon.png" />
+    <title>Kchomp</title>
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="/static/images/logo/KchompLogo.png"/>
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.4.2/pure-min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla|Merriweather+Sans|Russo+One" rel="stylesheet">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 
@@ -22,74 +21,70 @@
     <script src="/static/main.js"></script>
     <link rel="stylesheet" href="/static/style.css">
 
-    <title>Kchomp</title>
-
 </head>
 
 <body>
 
-    <header>
-        <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
+<header>
+<style>
+    /* phone size */
+@media screen and (max-width: 1000px) {
+    .lookUp {
+        display: none;
+    }
+}
+</style>
 
-            <a class="pure-menu-heading hot-swapper" href="/"><i class="fa fa-home"></i>&nbsp;Kchomp</a>
+<div class="navbar">
+        <a class="home" href="/">
+            HOME
+        </a>
 
-            <ul>
-                <li class="{{? it.selected === 'getting_started' }}pure-menu-selected{{?}}">
-                    <a class="hot-swapper" href="/getting_started">
-                        <i class="fa fa-rocket"></i>&nbsp;
-                        Getting Started
-                    </a>
-                </li>
-                <li class="{{? it.selected === 'stats' }}pure-menu-selected{{?}}">
-                    <a class="hot-swapper" href="/stats">
-                        <i class="fa fa-bar-chart-o"></i>&nbsp;
-                        Graph Stats
-                    </a>
-                </li>
-                <li class="{{? it.selected === 'tbs' }}pure-menu-selected{{?}}">
-                    <a class="hot-swapper" href="/tbs">
-                        <i class="fa fa-table"></i>&nbsp;
-                        Tab Stats
-                    </a>
-                </li>
-                <li class="{{? it.selected === 'workers' }}pure-menu-selected{{?}}">
-                    <a class="hot-swapper" href="/workers">
-                        <i class="fa fa-cogs"></i>&nbsp;
-                        Workers Stats
-                    </a>
-                </li>
-                <li class="{{? it.selected === 'api' }}pure-menu-selected{{?}}">
-                    <a class="hot-swapper" href="/api">
-                        <i class="fa fa-code"></i>&nbsp;
-                        API
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </header>
+        <a href="/getting_started">
+            GETTING STARTED
+        </a>
+                
+        <a href="/stats">
+            GRAPH STATS
+        </a>
+    
+        <a href="/workers">
+            WORKER STATS
+        </a>
 
-    <main>
-        {{=it.page}}
-    </main>
+        <a href="/tbs">
+            TAB STATS
+        </a>
 
+        <a href="/payments">
+            PAYMENTS
+        </a>
 
-    <footer>
+        <a href="/api">
+            API
+        </a>
+    </ul>
+</div>
 
-        <div>
-            This site is powered by the open source <a target="_blank" href="https://github.com/PerentieGroup/Kchomp">Kchomp</a>
-            project created by the PerentieGroup and the Komodo Community and is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPLv2
-                License</a>
-        </div>
-        <div id="communityFooter">
-            Community&nbsp;<i class="fa fa-comment"></i>&nbsp;: &nbsp;<a target="_blank" href="https://discord.gg/RqsSGKs">#talk-mining
-                Komodo Discord</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <iframe src="https://ghbtns.com/github-btn.html?user=PerentieGroup&repo=Kchomp&type=watch&count=true"
-                allowtransparency="true" frameborder="0" scrolling="0" width="140" height="20"></iframe>
-        </div>
+</header>
 
-    </footer>
+<main>
+    {{=it.page}}
+</main>
 
+<footer>
+
+    <div>
+        This site is powered by the open source <a target="_blank" href="https://github.com/PerentieGroup/Kchomp">Kchomp</a> project created by the PerentieGroup and the Komodo Community and is licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPLv2 License</a>
+    </div>
+
+    <div id="communityFooter">
+        Community&nbsp;<i class="fa fa-comment"></i>&nbsp;: &nbsp;<a target="_blank" href="https://discord.gg/RqsSGKs">#talk-mining Komodo Discord</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <iframe src="https://ghbtns.com/github-btn.html?user=PerentieGroup&repo=Kchomp&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="140" height="20">
+        </iframe>
+    </div>
+    
+</footer>
 </body>
-
 </html>

@@ -59,7 +59,8 @@ function buildChartData(){
     for (var worker in workers){
         workerHashrateData.push({
             key: worker,
-			disabled: (i > Math.min((_workerCount-1), 3)),
+			//disabled: (i > Math.min((_workerCount-1), 3)),
+			disabled: false,
             values: workers[worker].hashrate
         });
 		i++;
@@ -177,20 +178,20 @@ function updateWorkerStats() {
 }
 function addWorkerToDisplay(name, htmlSafeName, workerObj) {
 	var htmlToAdd = "";
-	htmlToAdd = '<div class="boxStats" id="boxStatsLeft" style="float:left; margin: 9px; min-width: 260px;"><div class="boxStatsList">';
+	htmlToAdd = '<div class="bannerWorkers"><div class="boxStats">';
 	if (htmlSafeName.indexOf("_") >= 0) {
 		htmlToAdd+= '<div class="boxLowerHeader">'+htmlSafeName.substr(htmlSafeName.indexOf("_")+1,htmlSafeName.length)+'</div>';
 	} else {
 		htmlToAdd+= '<div class="boxLowerHeader">noname</div>';
 	}
-	htmlToAdd+='<div><i class="fa fa-tachometer"></i> <span id="statsHashrate'+htmlSafeName+'">'+getReadableHashRateString(workerObj.hashrate)+'</span> (Now)</div>';
-	htmlToAdd+='<div><i class="fa fa-tachometer"></i> <span id="statsHashrateAvg'+htmlSafeName+'">'+getReadableHashRateString(calculateAverageHashrate(name))+'</span> (Avg)</div>';
-	htmlToAdd+='<div><i class="fa fa-shield"></i> <small>Diff:</small> <span id="statsDiff'+htmlSafeName+'">'+workerObj.diff+'</span></div>';
-	htmlToAdd+='<div><i class="fa fa-cog"></i> <small>Shares:</small> <span id="statsShares'+htmlSafeName+'">'+(Math.round(workerObj.currRoundShares * 100) / 100)+'</span></div>';
-	htmlToAdd+='<div><i class="fa fa-gavel"></i> <small>Luck <span id="statsLuckDays'+htmlSafeName+'">'+workerObj.luckDays+'</span> Days</small></div>';
-	htmlToAdd+='<div><i class="fa fa-money"></i> <small>Bal: <span id="statsBalance'+htmlSafeName+'">'+workerObj.balance+'</span></small></div>';
-	htmlToAdd+='<div><i class="fa fa-money"></i> <small>Paid: <span id="statsPaid'+htmlSafeName+'">'+workerObj.paid+'</span></small></div>';
-	htmlToAdd+='</div></div></div>';
+	htmlToAdd+='<div class="infotext"><span id="statsHashrate'+htmlSafeName+'">'+getReadableHashRateString(workerObj.hashrate)+'</span> (Now)</div>';
+	htmlToAdd+='<div class="infotext"><span id="statsHashrateAvg'+htmlSafeName+'">'+getReadableHashRateString(calculateAverageHashrate(name))+'</span> (Avg)</div>';
+	htmlToAdd+='<div class="infotext"><small>Diff:</small> <span id="statsDiff'+htmlSafeName+'">'+workerObj.diff+'</span></div>';
+	htmlToAdd+='<div class="infotext"><small>Shares:</small> <span id="statsShares'+htmlSafeName+'">'+(Math.round(workerObj.currRoundShares * 100) / 100)+'</span></div>';
+	htmlToAdd+='<div class="infotext"><small>Luck <span id="statsLuckDays'+htmlSafeName+'">'+workerObj.luckDays+'</span> Days</small></div>';
+	htmlToAdd+='<div class="infotext"><small>Bal: <span id="statsBalance'+htmlSafeName+'">'+workerObj.balance+'</span></small></div>';
+	htmlToAdd+='<div class="infotext"><small>Paid: <span id="statsPaid'+htmlSafeName+'">'+workerObj.paid+'</span></small></div>';
+	htmlToAdd+='</div></div>';
 	$("#boxesWorkers").html($("#boxesWorkers").html()+htmlToAdd);
 }
 

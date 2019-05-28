@@ -3,7 +3,11 @@ $(function(){
     var hotSwap = function(page, pushSate){
         if (pushSate) history.pushState(null, null, '/' + page);
         $('.pure-menu-selected').removeClass('pure-menu-selected');
-        $('a[href="/' + page + '"]').parent().addClass('pure-menu-selected');
+        if (page.length > 0) {
+            $('a[href="/' + page + '"]').parent().addClass('pure-menu-selected');
+        } else {
+            $('a[href="/"]').addClass('pure-menu-selected');
+        }
         $.get("/get_page", {id: page}, function(data){
             $('main').html(data);
         }, 'html')
