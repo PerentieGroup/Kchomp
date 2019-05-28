@@ -380,9 +380,10 @@ code {
 .coinLogo {
     height: 100px;
 }
+
 .coinInfoHeader {
-    color: var(--colour6);
-    font-family: var(--font1);
+    color: black;
+    font-family: var(--font2);
     font-size: 1.4em;
     text-align: center;
     padding: 5px;
@@ -401,6 +402,24 @@ code {
     margin: 15px;
 }
 
+table.coinInfoTable {
+    padding: 5px;
+    background-color: black;
+}
+
+table.coinInfoTable > tr{
+    height: 50px
+}
+
+table.coinInfoTable > th {
+    background-color: var(--colour4);
+}
+
+table.coinInfoTable > td {
+    background-color: var(--colour2);
+}
+
+/* ------------- 
 #coinInfoBackground{
     transition-duration: 400ms;
     position: absolute;
@@ -465,7 +484,7 @@ code {
 #coinInfoClose:hover{
     color: #50f0e3;
 }
-
+*/
 
 /* ***STATS*** */
 #topCharts{
