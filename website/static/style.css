@@ -341,9 +341,10 @@ footer a{
 #menu > .menuHeader{
     font-family: var(--font1);
     color: var(--colour3);
-    border-bottom: 1px solid var(--colour3);
+    border-bottom: 2px solid var(--colour3);
     font-size: 1.6em;
-    padding: 4px;
+    padding: 15px;
+    margin-top: 15px;
 }
 
 #menu > .words {
