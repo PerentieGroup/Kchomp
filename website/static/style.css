@@ -576,8 +576,8 @@ table {
     height: 280px;
 }
 .poolWrapper {
-    border: solid 5px var(--colour5);
-    padding: 5px;
+    border: solid 5px black;
+    padding: 4px;
     width: 1080px;
     margin: auto;
 }
@@ -629,11 +629,11 @@ input {
 
 /* PURE TABLE */
 .pure-table thead {
-    background-color:var(--colour4);
+    background-color: var(--colour5);
 }
 
 .pure-table tbody {
-    background-color:var(--colour2);
+    background-color: var(--colour3);
 }
 
 .pure-table-odd td,
