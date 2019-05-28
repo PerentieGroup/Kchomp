@@ -109,12 +109,12 @@
                                     <th>Server/Stratum:</th>
                                     <td>{{=it.portalConfig.website.stratumHost}}</td>
                                 </tr>
-                                <tr>
-                                    {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                    <tr>
                                         <th>{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</th>
                                         <td>{{=port}}</td>
-                                    {{ } }}
-                                </tr>
+                                    </tr>
+                                {{ } }}
                             </table>
                         </div>
                     </div>
