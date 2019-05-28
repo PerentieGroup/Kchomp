@@ -40,10 +40,10 @@
                             </div>
                             <div class="coinInfoRowValues">
                                 <div class="coinInfoUsername">
-                                    <div>{{=it.poolsConfigs[pool].coin.minPayment}}</div>
-                                    <div>{{=it.poolsConfigs[pool].coin.paymentFreq}}</div>
-                                    <div>{{=it.poolsConfigs[pool].coin.poolFee}}</div>
-                                    <div>{{=it.poolsConfigs[pool].coin.algorithm}}</div>
+                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.minPayment}}</div>
+                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.paymentFreq}}</div>
+                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.poolFee}}</div>
+                                    <div class="coinInfoList">{{=it.poolsConfigs[pool].coin.algorithm}}</div>
                                     {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} wallet <b style="color:#C99631;">zS</b> address<br>
                                     {{ } else if (it.poolsConfigs[pool].coin) { }}
@@ -51,12 +51,12 @@
                                     {{ } else { }}
                                         your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
                                     {{ } }}
+                                    <div class="coinInfoList">anything(it doesn't matter what)</div>
+                                    <div class="coinInfoList">{{=it.portalConfig.website.stratumHost}}</div>
+                                    {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                        <div class="coinInfoList">{{=port}}</div>
+                                    {{ } }}
                                 </div>
-                                <div>anything(it doesn't matter what)</div>
-                                <div>{{=it.portalConfig.website.stratumHost}}</div>
-                                {{ for (var port in it.poolsConfigs[pool].ports) { }}
-                                    <div>{{=port}}</div>
-                                {{ } }}
                             </div>
                         </div>
                     </div>
