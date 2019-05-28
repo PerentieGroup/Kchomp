@@ -402,23 +402,6 @@ code {
     margin: 15px;
 }
 
-table.coinInfoTable {
-    padding: 5px;
-    background-color: black;
-}
-
-table.coinInfoTable > tr{
-    height: 50px
-}
-
-table.coinInfoTable > th {
-    background-color: var(--colour4);
-}
-
-table.coinInfoTable > td {
-    background-color: var(--colour2);
-}
-
 /* ------------- 
 #coinInfoBackground{
     transition-duration: 400ms;
