@@ -63,5 +63,64 @@
                 </div>
             {{ } }}
         </div>
+
+            <div>
+                {{ for (var pool in it.poolsConfigs) { }}
+                    <div class="poolConfig">
+                            <div class="coinInfoHeader">
+                                    <span class="coinInfoName">{{=it.poolsConfigs[pool].coin.name}}</span> Configuration
+                            </div>
+    
+                        <div class="configDetails" id="configDetails">
+                            <table class="coinInfoRows">
+                                <tr>
+                                    <th>Min Payment</th>
+                                    <td>{{=it.poolsConfigs[pool].coin.minPayment}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Frequency (mins)</th>
+                                    <td>{{=it.poolsConfigs[pool].coin.paymentFreq}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Fee (%)</th>
+                                    <td>{{=it.poolsConfigs[pool].coin.poolFee}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <td>{{=it.poolsConfigs[pool].coin.algorithm}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Username:</th>
+                                    <td>
+                                        {{ if (it.poolsConfigs[pool].coin && it.poolsConfigs[pool].coin.privateChain) { }}
+                                            your {{=it.poolsConfigs[pool].coin.name}} wallet <b style="color:#C99631;">zS</b> address<br>
+                                        {{ } else if (it.poolsConfigs[pool].coin) { }}
+                                            your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
+                                        {{ } else { }}
+                                            your {{=it.poolsConfigs[pool].coin.name}} miner wallet address
+                                        {{ } }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Password:</th>
+                                    <td>ANYTHING</td>
+                                </tr>
+                                <tr>
+                                    <th>Server/Stratum:</th>
+                                    <td>{{=it.portalConfig.website.stratumHost}}</td>
+                                </tr>
+                                <tr>
+                                    {{ for (var port in it.poolsConfigs[pool].ports) { }}
+                                        <th>{{= it.poolsConfigs[pool].ports[port].label ? it.poolsConfigs[pool].ports[port].label : 'URL'}} Port</th>
+                                        <td>{{=port}}</td>
+                                    {{ } }}
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                {{ } }}
+            </div>
+
+
     </div>
 </div>
